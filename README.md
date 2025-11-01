@@ -95,9 +95,21 @@ Multiple methods, detailed steps, troubleshooting
 
 <div align="center">
 
-### 📊 Real-Time Monitoring Dashboard
-![Session Monitoring](docs/screenshots/monitoring-dashboard.png)
-*Track tokens, health scores, and session metrics in real-time*
+### 📊 Discover All Your AI Coding Sessions
+![Session List](screenshots/list.png)
+*Automatically discovers Claude Code, Cursor, and GitHub Copilot sessions*
+
+### 📈 Detailed Session Information
+![Session Details](screenshots/show.png)
+*Complete session metrics with health scoring and token tracking*
+
+### 🏥 Multi-Factor Health Analysis
+![Health Check](screenshots/health.png)
+*Smart health scoring with actionable recommendations*
+
+### 📺 Real-Time Monitoring Dashboard
+![Live Monitor](screenshots/monitor.png)
+*Track all sessions in real-time with live updates*
 
 ### 👥 Team Collaboration
 ![Team Collaboration](docs/screenshots/collaboration-ui.png)

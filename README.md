@@ -11,7 +11,7 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-14%2F14%20passing-success.svg)](tests/)
 
-[Quick Start](#-quick-start-30-seconds) • [Features](#-why-llm-session-manager) • [Documentation](docs/) • [Demo](#-see-it-in-action)
+[Quick Start](#-quick-start-30-seconds) • [Features](#-why-llm-session-manager) • [User Guide](USER_GUIDE.md) • [FAQ](docs/FAQ.md) • [Demo](#-see-it-in-action)
 
 </div>
 

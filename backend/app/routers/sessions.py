@@ -7,9 +7,10 @@ from typing import List
 from ..database import get_db
 from ..models import SessionModel
 
-router = APIRouter()
+router = APIRouter(redirect_slashes=False)
 
 
+@router.get("")
 @router.get("/")
 async def list_sessions(db: Session = Depends(get_db)):
     """List all sessions."""
@@ -26,6 +27,27 @@ async def list_sessions(db: Session = Depends(get_db)):
             }
             for s in sessions
         ]
+    }
+
+
+@router.get("/stats")
+async def get_stats(db: Session = Depends(get_db)):
+    """Get session statistics."""
+    from sqlalchemy import func
+    
+    total_sessions = db.query(func.count(SessionModel.id)).scalar()
+    active_sessions = db.query(func.count(SessionModel.id)).filter(
+        SessionModel.status == "active"
+    ).scalar()
+    
+    total_tokens = db.query(func.sum(SessionModel.token_count)).scalar() or 0
+    avg_health = db.query(func.avg(SessionModel.health_score)).scalar() or 0
+    
+    return {
+        "total_sessions": total_sessions,
+        "active_sessions": active_sessions,
+        "total_tokens": total_tokens,
+        "average_health": round(avg_health, 2)
     }
 
 

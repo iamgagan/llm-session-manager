@@ -1,0 +1,26 @@
+{
+  "timestamp": "2025-11-01T20:59:00.221594",
+  "summary": {
+    "total": 3,
+    "passed": 2,
+    "failed": 1
+  },
+  "tests": [
+    {
+      "test": "MCP Config Generation",
+      "status": "PASS",
+      "timestamp": "2025-11-01T20:59:00.213965"
+    },
+    {
+      "test": "MCP Server Startup",
+      "status": "PASS",
+      "timestamp": "2025-11-01T20:59:00.217951"
+    },
+    {
+      "test": "MCP Tools Definition",
+      "status": "FAIL",
+      "error": "No module named 'structlog'",
+      "timestamp": "2025-11-01T20:59:00.221412"
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "timestamp": "2025-11-01T20:58:49.005498",
+  "summary": {
+    "total": 19,
+    "passed": 19,
+    "failed": 0,
+    "pass_rate": "100.0%"
+  },
+  "tests": [
+    {
+      "feature": "List Sessions (Table)",
+      "command": "poetry run python -m llm_session_manager.cli list",
+      "status": "PASS",
+      "stdout_preview": "Discovering sessions...\n                              Active Sessions (6)                               \n\u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2513\n\u2503 ID          ",
+      "stderr_preview": "",
+      "timestamp": "2025-11-01T20:58:07.614927"
+    },
+    {
+      "feature": "List Sessions (JSON)",
+      "command": "poetry run python -m llm_session_manager.cli list --format json 2>&1 | grep -v Discovering",
+      "status": "PASS",
+      "stdout_preview": "[\n  {\n    \"id\": \"cursor_cli_637_1762045088\",\n    \"pid\": 637,\n    \"type\": \"cursor_cli\",\n    \"status\": \"active\",\n    \"start_time\": \"2025-10-28T18:49:40.364496\",\n    \"last_activity\": \"2025-11-01T20:58:08",
+      "stderr_preview": "",
+      "timestamp": "2025-11-01T20:58:12.920509"
+    },
+    {
+      "feature": "Show Session Details",
+      "command": "poetry run python -m llm_session_manager.cli show cursor_cli_637_1762045093",
+      "status": "PASS",
+      "stdout_preview": "Searching for session: cursor_cli_637_1762045093...\n\u256d\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \ud83d\udcca Session Details \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256e\n\u2502 Session ID: cursor_cli_637_1762045093                             ",
+      "stderr_preview": "",
+      "timestamp": "2025-11-01T20:58:18.971439"
+    },
+    {
+      "feature": "Health Check",
+      "command": "poetry run python -m llm_session_manager.cli health cursor_cli_637_1762045093",
+      "status": "PASS",
+      "stdout_preview": "Searching for session: cursor_cli_637_1762045093...\n\nHealth Report: cursor_cli_637_1762045093...\n\n\u256d\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 Overall Health \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256e\n\u2502 \u26a0\ufe0f 42.0% - WARNING ",
+      "stderr_preview": "",
+      "timestamp": "2025-11-01T20:58:22.940817"
+    },
+    {
+      "feature": "List Projects",
+      "command": "poetry run python -m llm_session_manager.cli list-projects",
+      "status": "PASS",
+      "stdout_preview": "                     Projects (3)                      \n\u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n\u2503 Project Name                             \u2503 Sessions \u2503\n\u2521\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501",
+      "stderr_preview": "",
+      "timestamp": "2025-11-01T20:58:23.605329"
+    },
+    {
+      "feature": "Info Command",
+      "command": "poetry run python -m llm_session_manager.cli info",
+      "status": "PASS",
+      "stdout_preview": "\nLLM Session Manager\nVersion: 0.3.0\n\nA CLI tool for tracking and managing multiple AI coding assistant sessions.\n\nFeatures:\n  \u2022 Real-time session monitoring\n  \u2022 Token usage tracking (with tiktoken)\n  ",
+      "stderr_preview": "",
+      "timestamp": "2025-11-01T20:58:24.185124"
+    },
+    {
+      "feature": "Export to JSON",
+      "command": "poetry run python -m llm_session_manager.cli export cursor_cli_637_1762045093 --format json --output /tmp/test_export.json",
+      "status": "PASS",
+      "stdout_preview": "Searching for session: cursor_cli_637_1762045093...\n\u2713 Session exported to: /tmp/test_export.json\n  Format: json\n  Session ID: cursor_cli_637_1762045093\n  Type: cursor_cli\n  Tokens: 9,819,522\n  Health:",
+      "stderr_preview": "",
+      "timestamp": "2025-11-01T20:58:28.006378"
+    },
+    {
+      "feature": "Export to YAML",
+      "command": "poetry run python -m llm_session_manager.cli export cursor_cli_637_1762045093 --format yaml --output /tmp/test_export.yaml",
+      "status": "PASS",
+      "stdout_preview": "Searching for session: cursor_cli_637_1762045093...\n\u2713 Session exported to: /tmp/test_export.yaml\n  Format: yaml\n  Session ID: cursor_cli_637_1762045093\n  Type: cursor_cli\n  Tokens: 9,819,553\n  Health:",
+      "stderr_preview": "",
+      "timestamp": "2025-11-01T20:58:31.898713"
+    },
+    {
+      "feature": "Export to Markdown",
+      "command": "poetry run python -m llm_session_manager.cli export cursor_cli_637_1762045093 --format markdown --output /tmp/test_export.md",
+      "status": "PASS",
+      "stdout_preview": "Searching for session: cursor_cli_637_1762045093...\n\u2713 Session exported to: /tmp/test_export.md\n  Format: markdown\n  Session ID: cursor_cli_637_1762045093\n  Type: cursor_cli\n  Tokens: 9,819,584\n  Healt",
+      "stderr_preview": "",
+      "timestamp": "2025-11-01T20:58:35.762786"
+    },
+    {
+      "feature": "Memory Stats",
+      "command": "poetry run python -m llm_session_manager.cli memory-stats",
+      "status": "PASS",
+      "stdout_preview": "\nMemory System Statistics\n\n  Total Memories:        28\n  Sessions with Memories: 21\n  Storage Location:       data/memories\n  Status:                 Active\n\n",
+      "stderr_preview": "",
+      "timestamp": "2025-11-01T20:58:36.977629"
+    },
+    {
+      "feature": "Add Memory",
+      "command": "poetry run python -m llm_session_manager.cli memory-add cursor_cli_637_1762045093 \"Test memory content\" \"test feature\"",
+      "status": "PASS",
+      "stdout_preview": "\u2713 Memory saved!\n  Memory ID: abfe2bd6-7119-4c6f-9e0b-a367272734e6\n  Session: cursor_cli_637_1762045093...\n  Content: Test memory content\n  Tags: #test, #feature\n",
+      "stderr_preview": "",
+      "timestamp": "2025-11-01T20:58:38.169938"
+    },
+    {
+      "feature": "Search Memory",
+      "command": "poetry run python -m llm_session_manager.cli memory-search \"test\"",
+      "status": "PASS",
+      "stdout_preview": "Searching for: test...\n\nFound 5 relevant memories:\n\n\u256d\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 Memory 1 (Relevance: 61%) \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256e\n\u2502 Test memory                                                      ",
+      "stderr_preview": "",
+      "timestamp": "2025-11-01T20:58:39.365872"
+    },
+    {
+      "feature": "List Memories",
+      "command": "poetry run python -m llm_session_manager.cli memory-list",
+      "status": "PASS",
+      "stdout_preview": "Total memories: 29\nSessions with memories: 22\n\nTip: Use --session to filter by specific session\nTip: Use 'memory-search' to find relevant memories\n",
+      "stderr_preview": "",
+      "timestamp": "2025-11-01T20:58:40.560937"
+    },
+    {
+      "feature": "Tag Session",
+      "command": "poetry run python -m llm_session_manager.cli tag cursor_cli_637_1762045093 test-tag feature-test",
+      "status": "PASS",
+      "stdout_preview": "Searching for session: cursor_cli_637_1762045093...\n\u2713 Added 2 tag(s) to session cursor_cli_637_17620...\n  Tags: #test-tag, #feature-test\n",
+      "stderr_preview": "",
+      "timestamp": "2025-11-01T20:58:41.233622"
+    },
+    {
+      "feature": "Set Project",
+      "command": "poetry run python -m llm_session_manager.cli set-project cursor_cli_637_1762045093 \"Test Project\"",
+      "status": "PASS",
+      "stdout_preview": "Searching for session: cursor_cli_637_1762045093...\n\u2713 Set project for session cursor_cli_637_17620...\n  Project: \ud83d\udcc1 Test Project\n",
+      "stderr_preview": "",
+      "timestamp": "2025-11-01T20:58:41.927144"
+    },
+    {
+      "feature": "Describe Session",
+      "command": "poetry run python -m llm_session_manager.cli describe cursor_cli_637_1762045093 \"Test description\" --show",
+      "status": "PASS",
+      "stdout_preview": "Searching for session: cursor_cli_637_1762045093...\nNo description set for session cursor_cli_637_17620...\n",
+      "stderr_preview": "",
+      "timestamp": "2025-11-01T20:58:42.753423"
+    },
+    {
+      "feature": "Generate MCP Config",
+      "command": "poetry run python -m llm_session_manager.cli mcp-config",
+      "status": "PASS",
+      "stdout_preview": "\nMCP Server Configuration\n\nAdd this to your Claude Desktop configuration file:\n\n{\n  \"mcpServers\": {\n    \"llm-session-manager\": {\n      \"command\": \n\"/Users/gagan/Library/Caches/pypoetry/virtualenvs/llm",
+      "stderr_preview": "",
+      "timestamp": "2025-11-01T20:58:43.353439"
+    },
+    {
+      "feature": "Show Config",
+      "command": "poetry run python -m llm_session_manager.cli show-config",
+      "status": "PASS",
+      "stdout_preview": "\nConfiguration (/Users/gagan/.config/llm-session-manager/config.yaml)\n\nToken Limits:\n  claude_pro          : 200,000 tokens\n  claude_max5         : 350,000 tokens\n  claude_max20        : 1,400,000 tok",
+      "stderr_preview": "",
+      "timestamp": "2025-11-01T20:58:43.948719"
+    },
+    {
+      "feature": "Get Recommendations",
+      "command": "poetry run python -m llm_session_manager.cli recommend",
+      "status": "PASS",
+      "stdout_preview": "Analyzing sessions...\n\nSmart Recommendations (11)\n\n\u256d\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \ud83d\udd34 RESTART (Priority: high) \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256e\n\u2502 Session approaching token limit (4910%)                            ",
+      "stderr_preview": "",
+      "timestamp": "2025-11-01T20:58:49.004700"
+    }
+  ]
+}

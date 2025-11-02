@@ -7,6 +7,7 @@ import structlog
 
 from .config import get_settings
 from .routers import auth, sessions, teams, analytics, insights
+from .routers import projects, memory
 from .database import engine, Base
 from .websocket import router as ws_router
 
@@ -23,7 +24,8 @@ app = FastAPI(
     version="0.3.0",
     docs_url="/api/docs",
     redoc_url="/api/redoc",
-    openapi_url="/api/openapi.json"
+    openapi_url="/api/openapi.json",
+    redirect_slashes=False  # Disable automatic trailing slash redirects
 )
 
 # CORS middleware
@@ -55,6 +57,8 @@ async def shutdown():
 # Include routers
 app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
 app.include_router(sessions.router, prefix="/api/sessions", tags=["Sessions"])
+app.include_router(projects.router, prefix="/api/projects", tags=["Projects"])
+app.include_router(memory.router, prefix="/api/memory", tags=["Memory"])
 app.include_router(teams.router, prefix="/api/teams", tags=["Teams"])
 app.include_router(analytics.router, prefix="/api/analytics", tags=["Analytics"])
 app.include_router(insights.router, prefix="/api/insights", tags=["Insights"])

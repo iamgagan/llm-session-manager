@@ -578,3 +578,29 @@ class Database:
             """, (search_pattern,))
             rows = cursor.fetchall()
             return [self._row_to_session(row) for row in rows]
+
+    def get_all_projects(self) -> List[dict]:
+        """Get all distinct projects with session counts.
+
+        Returns:
+            List of dictionaries with 'project_name' and 'session_count'.
+        """
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT 
+                    project_name,
+                    COUNT(*) as session_count
+                FROM sessions
+                WHERE project_name IS NOT NULL AND project_name != ''
+                GROUP BY project_name
+                ORDER BY session_count DESC, project_name ASC
+            """)
+            rows = cursor.fetchall()
+            return [
+                {
+                    "project_name": row["project_name"],
+                    "session_count": row["session_count"]
+                }
+                for row in rows
+            ]

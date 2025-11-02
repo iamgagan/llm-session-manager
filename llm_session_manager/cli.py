@@ -417,14 +417,43 @@ def export(
             }
         }
 
-        # List files in working directory if available
+        # List files in working directory if available (limited search)
         if session.working_directory and Path(session.working_directory).exists():
             try:
                 files = []
-                for f in Path(session.working_directory).rglob("*.py"):
-                    if not any(p in f.parts for p in ["__pycache__", ".git", "venv", "node_modules"]):
-                        files.append(str(f.relative_to(session.working_directory)))
-                export_data["context"]["files"] = files[:50]  # Limit to 50 files
+                working_dir = Path(session.working_directory)
+                
+                # Skip large/system directories
+                skip_dirs = {
+                    "__pycache__", ".git", "venv", "node_modules", ".venv",
+                    "env", "build", "dist", ".tox", ".pytest_cache",
+                    "Library", "Applications", "System", "usr", "var"
+                }
+                
+                # Limit search depth and file count
+                max_files = 50
+                max_depth = 3
+                
+                def should_skip_dir(dir_path: Path) -> bool:
+                    return any(skip in dir_path.parts for skip in skip_dirs)
+                
+                # Search only up to max_depth levels
+                for depth in range(max_depth + 1):
+                    if len(files) >= max_files:
+                        break
+                    
+                    pattern = "/".join(["*"] * depth) + "/*.py" if depth > 0 else "*.py"
+                    try:
+                        for f in working_dir.glob(pattern):
+                            if len(files) >= max_files:
+                                break
+                            if f.is_file() and not should_skip_dir(f):
+                                files.append(str(f.relative_to(working_dir)))
+                    except (PermissionError, OSError):
+                        # Skip directories we can't access
+                        continue
+                
+                export_data["context"]["files"] = files
             except Exception as e:
                 logger.warning("failed_to_list_files", error=str(e))
 
@@ -774,6 +803,59 @@ def set_project(
 
 
 @app.command()
+def list_projects(
+    format: str = typer.Option("table", "--format", "-f", help="Output format: table or json")
+):
+    """List all projects with session counts.
+
+    Shows all distinct project names that have been assigned to sessions,
+    along with how many sessions belong to each project.
+
+    Example:
+        llm-session list-projects
+        llm-session list-projects --format json
+    """
+    try:
+        # Initialize components
+        db, _, _, _ = get_components()
+
+        # Get all projects
+        projects = db.get_all_projects()
+
+        if not projects:
+            console.print("[yellow]No projects found. Set project names using 'set-project' command.[/yellow]")
+            return
+
+        # Display based on format
+        if format == "json":
+            # JSON output
+            console.print_json(data=projects)
+        else:
+            # Table output
+            table = Table(
+                title=f"Projects ({len(projects)})",
+                show_header=True,
+                header_style="bold cyan"
+            )
+
+            table.add_column("Project Name", style="cyan", width=40)
+            table.add_column("Sessions", justify="right", style="dim")
+
+            for project in projects:
+                table.add_row(
+                    project["project_name"],
+                    str(project["session_count"])
+                )
+
+            console.print(table)
+
+    except Exception as e:
+        console.print(f"[red]Error listing projects: {e}[/red]")
+        logger.error("list_projects_failed", error=str(e))
+        raise typer.Exit(code=1)
+
+
+@app.command()
 def auto_tag(
     session_id: str = typer.Argument(..., help="Session ID to auto-tag"),
     apply: bool = typer.Option(False, "--apply", "-a", help="Apply tags automatically without confirmation"),
@@ -940,38 +1022,65 @@ def describe(
                 console.print(f"[yellow]No description set for session {session.id[:20]}...[/yellow]")
             return
 
-        # AI generation
-        if use_ai or description is None:
+        # Handle description input
+        if description is None and not use_ai:
+            # No description provided - show current or help user provide one
+            if session.description:
+                console.print(f"[bold]Current description:[/bold] {session.description}\n")
+            else:
+                console.print("[yellow]No description set for this session.[/yellow]\n")
+            
+            # Check if AI is available
+            desc_gen = DescriptionGenerator()
+            if desc_gen.is_available():
+                use_ai_prompt = typer.confirm("Generate description using AI?", default=True)
+                if use_ai_prompt:
+                    use_ai = True  # Set flag to use AI path below
+                else:
+                    # Prompt for manual description
+                    description = typer.prompt("Enter description")
+                    if not description.strip():
+                        console.print("[yellow]Description not updated.[/yellow]")
+                        return
+            else:
+                # AI not available - prompt for manual description
+                console.print("[dim]AI description generation not available. Set ANTHROPIC_API_KEY environment variable.[/dim]")
+                description = typer.prompt("Enter description")
+                if not description.strip():
+                    console.print("[yellow]Description not updated.[/yellow]")
+                    return
+        
+        # AI generation (if requested)
+        if use_ai and description is None:
             console.print(f"[dim]Generating AI description...[/dim]\n")
             desc_gen = DescriptionGenerator()
-
+            
             if not desc_gen.is_available():
                 console.print("[yellow]AI description generation not available. Set ANTHROPIC_API_KEY environment variable.[/yellow]")
-                if description is None:
-                    console.print("[red]Please provide a description manually.[/red]")
-                    raise typer.Exit(code=1)
+                # Fall back to manual input
+                description = typer.prompt("Enter description")
+                if not description.strip():
+                    console.print("[yellow]Description not updated.[/yellow]")
+                    return
             else:
                 generated = desc_gen.generate_description(session)
                 if generated:
                     console.print(f"[bold cyan]Generated description:[/bold cyan]")
                     console.print(f"  {generated}\n")
 
-                    if description:
-                        # User provided manual description too, ask which to use
-                        use_generated = typer.confirm("Use AI-generated description?", default=True)
-                        description = generated if use_generated else description
+                    # Ask user to confirm
+                    if typer.confirm("Use this description?", default=True):
+                        description = generated
                     else:
-                        # Only AI description available
-                        if typer.confirm("Use this description?", default=True):
-                            description = generated
-                        else:
-                            console.print("[dim]Description not updated.[/dim]")
-                            return
+                        console.print("[dim]Description not updated.[/dim]")
+                        return
                 else:
                     console.print("[yellow]AI description generation failed.[/yellow]")
-                    if description is None:
-                        console.print("[red]Please provide a description manually.[/red]")
-                        raise typer.Exit(code=1)
+                    # Fall back to manual input
+                    description = typer.prompt("Enter description")
+                    if not description.strip():
+                        console.print("[yellow]Description not updated.[/yellow]")
+                        return
 
         # Set description
         session.description = description
@@ -1427,15 +1536,25 @@ def batch_export(
 def memory_add(
     session_id: str = typer.Argument(..., help="Session ID to save memory from"),
     content: str = typer.Argument(..., help="Memory content to save"),
-    tags: Optional[List[str]] = typer.Option(None, "--tag", "-t", help="Tags for categorization")
+    tags_option: Optional[List[str]] = typer.Option(None, "--tag", "-t", help="Tags for categorization (use --tag for each tag)"),
+    tags_str: Optional[str] = typer.Argument(None, help="Tags as space-separated string (alternative to --tag)")
 ):
     """Save important knowledge from a session to cross-session memory.
 
     This allows other sessions to find and use this knowledge later.
 
-    Example:
-        llm-session memory-add abc123 "Implemented JWT auth using jose library" --tag auth --tag backend
+    Tags can be provided using --tag option (multiple times) or as a single
+    space-separated string argument.
+
+    Examples:
+        llm-session memory-add abc123 "Implemented JWT auth" --tag auth --tag backend
+        llm-session memory-add abc123 "Implemented JWT auth" "auth backend"
     """
+    # Combine tags from option and string argument
+    tags = tags_option or []
+    if tags_str:
+        # Split the string by spaces and add to tags list
+        tags.extend([t.strip() for t in tags_str.split() if t.strip()])
     try:
         memory_mgr = MemoryManager()
 

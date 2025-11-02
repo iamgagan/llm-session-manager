@@ -2,11 +2,20 @@
 
 from datetime import datetime, timedelta
 from typing import Optional
-from jose import JWTError, jwt
-from passlib.context import CryptContext
 from fastapi import Depends, HTTPException, status, WebSocket
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
+
+# Make auth dependencies optional
+try:
+    from jose import JWTError, jwt
+    from passlib.context import CryptContext
+    HAS_AUTH = True
+    pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+except ImportError:
+    HAS_AUTH = False
+    JWTError = Exception  # Fallback
+    pwd_context = None
 
 from .config import get_settings
 from .database import get_db
@@ -14,25 +23,29 @@ from .models import User
 
 settings = get_settings()
 
-# Password hashing
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
 # HTTP Bearer for REST API
 security = HTTPBearer()
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify password against hash."""
+    if not HAS_AUTH or not pwd_context:
+        raise HTTPException(status_code=501, detail="Auth not configured")
     return pwd_context.verify(plain_password, hashed_password)
 
 
 def get_password_hash(password: str) -> str:
     """Hash password."""
+    if not HAS_AUTH or not pwd_context:
+        raise HTTPException(status_code=501, detail="Auth not configured")
     return pwd_context.hash(password)
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     """Create JWT access token."""
+    if not HAS_AUTH:
+        raise HTTPException(status_code=501, detail="Auth not configured")
+        
     to_encode = data.copy()
 
     if expires_delta:
@@ -48,6 +61,9 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
 
 def decode_token(token: str) -> dict:
     """Decode and verify JWT token."""
+    if not HAS_AUTH:
+        raise HTTPException(status_code=501, detail="Auth not configured")
+        
     try:
         payload = jwt.decode(token, settings.JWT_SECRET_KEY, algorithms=[settings.JWT_ALGORITHM])
         return payload

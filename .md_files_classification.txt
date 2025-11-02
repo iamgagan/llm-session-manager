@@ -1,0 +1,35 @@
+# Markdown Files Classification
+
+## Already in GitHub (Good) ✅
+- CHANGELOG.md
+- CONTRIBUTING.md
+- FEATURE_STATUS.md
+- HOW_TO_TEST.md
+- MANUAL_TESTING_GUIDE.md (needs to be added!)
+- QUICKSTART.md
+- QUICK_TEST.md
+- README.md
+- docs/ folder files
+
+## Should ADD to GitHub (User-Facing) 📦
+1. MANUAL_TESTING_GUIDE.md - Complete testing guide for users
+2. COMPETITIVE_ANALYSIS.md - Shows why we're different (optional but good)
+3. AWS_AGENTCORE_COMPARISON.md - Clarifies we're not competing with AWS (optional)
+
+## Should NOT Add (Internal/Planning Docs) ❌
+- CLEANUP_COMPLETE.md - Internal cleanup notes
+- FEATURE_VERIFICATION_REPORT.md - Internal testing report
+- LAUNCH_READINESS.md - Internal launch prep
+- LINKEDIN_LAUNCH_POST.md - Launch marketing content
+- REMAINING_TESTS.md - Internal testing plan
+- SESSION_FIXES_COMPLETE.md - Internal fix notes
+- COMMERCIAL_VIABILITY_ANALYSIS.md - Internal business analysis
+- FINAL_ONBOARDING_SUMMARY.md - Internal notes
+- GITHUB_PUSH_PLAN.md - Internal plan
+- IMPLEMENTATION_SUMMARY.md - Internal implementation notes
+- LAUNCH_PREP_COMPLETE.md - Internal launch notes
+- LAUNCH_READY.md - Internal launch notes
+- LAUNCH_READY_SUMMARY.md - Internal launch notes
+- MINOR_FIXES_COMPLETE.md - Already in GitHub
+- ONBOARDING_IMPROVEMENTS.md - Internal notes
+- TAGGING_FIX_COMPLETE.md - Already in GitHub

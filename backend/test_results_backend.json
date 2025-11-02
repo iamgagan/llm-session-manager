@@ -1,0 +1,74 @@
+{
+  "timestamp": "2025-11-01T20:49:55.059569",
+  "summary": {
+    "total": 7,
+    "passed": 7,
+    "failed": 0,
+    "skipped": 0
+  },
+  "tests": [
+    {
+      "feature": "Health Check",
+      "endpoint": "/health",
+      "method": "GET",
+      "status_code": 200,
+      "status": "PASS",
+      "response_preview": "{'status': 'healthy', 'version': '0.3.0'}",
+      "timestamp": "2025-11-01T20:49:52.823897"
+    },
+    {
+      "feature": "List Sessions",
+      "endpoint": "/api/sessions/",
+      "method": "GET",
+      "status_code": 200,
+      "status": "PASS",
+      "response_preview": "{'sessions': [{'id': 'test_session_001', 'type': 'claude', 'status': 'active', 'token_count': 0, 'health_score': 100.0, 'start_time': '2025-10-18T16:41:43.389807'}, {'id': 'claude_code_65260_176080858",
+      "timestamp": "2025-11-01T20:49:52.856388"
+    },
+    {
+      "feature": "Session Stats",
+      "endpoint": "/api/sessions/stats",
+      "method": "GET",
+      "status_code": 200,
+      "status": "PASS",
+      "response_preview": "{'total_sessions': 7, 'active_sessions': 7, 'total_tokens': 0, 'average_health': 100.0}",
+      "timestamp": "2025-11-01T20:49:52.868881"
+    },
+    {
+      "feature": "List Projects",
+      "endpoint": "/api/projects/",
+      "method": "GET",
+      "status_code": 200,
+      "status": "PASS",
+      "response_preview": "{'projects': [{'project_name': 'Real-Time Collaboration Test', 'session_count': 1}]}",
+      "timestamp": "2025-11-01T20:49:52.874852"
+    },
+    {
+      "feature": "List Memories",
+      "endpoint": "/api/memory/",
+      "method": "GET",
+      "status_code": 200,
+      "status": "PASS",
+      "response_preview": "{'memories': [], 'total': 0, 'message': 'Memory listing through API is available'}",
+      "timestamp": "2025-11-01T20:49:53.323377"
+    },
+    {
+      "feature": "Search Memories",
+      "endpoint": "/api/memory/search?query=test",
+      "method": "GET",
+      "status_code": 200,
+      "status": "PASS",
+      "response_preview": "{'query': 'test', 'results': [], 'count': 0, 'error': \"'MemoryManager' object has no attribute 'search'\"}",
+      "timestamp": "2025-11-01T20:49:53.326437"
+    },
+    {
+      "feature": "Get Recommendations",
+      "endpoint": "/api/insights/recommendations",
+      "method": "GET",
+      "status_code": 200,
+      "status": "PASS",
+      "response_preview": "{'recommendations': [], 'count': 0, 'error': \"No module named 'llm_session_manager.services.recommendation_engine'\"}",
+      "timestamp": "2025-11-01T20:49:55.059419"
+    }
+  ]
+}

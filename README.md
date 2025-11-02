@@ -53,10 +53,10 @@ LLM Session Manager gives you **complete control** over your AI coding workflow:
 ### ⚡ One Command Install
 ```bash
 curl -fsSL https://raw.githubusercontent.com/\
-yourusername/llm-session-manager/main/\
+iamgagan/llm-session-manager/main/\
 setup.sh | bash
 ```
-**Then:** `llm-session list`
+**Then:** `poetry run python -m llm_session_manager.cli list`
 
 </td>
 <td width="50%">
@@ -74,7 +74,7 @@ open http://localhost:3000
 <td width="50%">
 
 ### ☁️ GitHub Codespaces
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/yourusername/llm-session-manager/codespaces)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/iamgagan/llm-session-manager/codespaces)
 
 **Everything pre-installed!**
 
@@ -253,18 +253,18 @@ Your team can now:
 ### Option 1: One-Command Install (Recommended)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/yourusername/llm-session-manager/main/setup.sh | bash
+curl -fsSL https://raw.githubusercontent.com/iamgagan/llm-session-manager/main/setup.sh | bash
 ```
 
 Then start using:
 ```bash
-llm-session list
+poetry run python -m llm_session_manager.cli list
 ```
 
 ### Option 2: Manual Install
 
 ```bash
-git clone https://github.com/yourusername/llm-session-manager.git
+git clone https://github.com/iamgagan/llm-session-manager.git
 cd llm-session-manager
 poetry install
 
@@ -287,7 +287,7 @@ open http://localhost:3000
 
 ### Option 4: GitHub Codespaces (Instant)
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/yourusername/llm-session-manager/codespaces)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/iamgagan/llm-session-manager/codespaces)
 
 Everything pre-configured and ready to use!
 
@@ -350,27 +350,23 @@ Everything pre-configured and ready to use!
 
 ```bash
 # Session Management
-llm-session list                           # List all active sessions
-llm-session monitor                        # Real-time TUI dashboard
-llm-session health <session-id>            # Detailed health breakdown
-llm-session export <session-id> --format json  # Export session data
+poetry run python -m llm_session_manager.cli list                    # List all active sessions
+poetry run python -m llm_session_manager.cli monitor                 # Real-time TUI dashboard
+poetry run python -m llm_session_manager.cli health <session-id>     # Detailed health breakdown
+poetry run python -m llm_session_manager.cli export <session-id> --format json  # Export session data
 
 # AI-Powered Insights 🧠
-llm-session insights <session-id>          # Get smart recommendations
-llm-session recommend                      # Get proactive suggestions
-llm-session memory-search "authentication" # Search team knowledge
+poetry run python -m llm_session_manager.cli recommend               # Get smart recommendations
+poetry run python -m llm_session_manager.cli memory-search "authentication"  # Search team knowledge
 
 # Team Collaboration 👥
-llm-session share <session-id>             # Share with team
-llm-session collab-join <session-id>       # Join collaborative session
+poetry run python -m llm_session_manager.cli share <session-id>      # Share with team
 
 # Organization & Search
-llm-session tag <session-id> feature auth  # Tag sessions
-llm-session search "bug fix"               # Semantic search
+poetry run python -m llm_session_manager.cli tag <session-id> feature auth  # Tag sessions
 
 # MCP Integration (Claude Desktop)
-llm-session mcp-config                     # Generate config
-llm-session mcp-server                     # Start MCP server
+poetry run python -m llm_session_manager.cli mcp-config              # Generate config
 ```
 
 **[→ See Full CLI Documentation](docs/CLI_REFERENCE.md)**
@@ -452,7 +448,7 @@ We have a comprehensive automated test suite with **28/29 tests passing (96.6% p
 **Quick test:**
 ```bash
 # Clone and install
-git clone https://github.com/yourusername/llm-session-manager.git
+git clone https://github.com/iamgagan/llm-session-manager.git
 cd llm-session-manager
 poetry install
 
@@ -583,7 +579,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 </tr>
 </table>
 
-**[→ Vote on Features](https://github.com/yourusername/llm-session-manager/discussions)**
+**[→ Vote on Features](https://github.com/iamgagan/llm-session-manager/discussions)**
 
 ---
 
@@ -664,7 +660,7 @@ We'd love your help making LLM Session Manager better! Here's how to contribute:
 </tr>
 </table>
 
-**[→ See Contributing Guide](CONTRIBUTING.md)** | **[→ Good First Issues](https://github.com/yourusername/llm-session-manager/labels/good-first-issue)**
+**[→ See Contributing Guide](CONTRIBUTING.md)** | **[→ Good First Issues](https://github.com/iamgagan/llm-session-manager/labels/good-first-issue)**
 
 ---
 
@@ -672,7 +668,7 @@ We'd love your help making LLM Session Manager better! Here's how to contribute:
 
 If you find LLM Session Manager useful, please consider giving it a star! It helps others discover the project.
 
-[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/llm-session-manager&type=Date)](https://star-history.com/#yourusername/llm-session-manager&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=iamgagan/llm-session-manager&type=Date)](https://star-history.com/#iamgagan/llm-session-manager&Date)
 
 ---
 
@@ -704,13 +700,13 @@ MIT License - see [LICENSE](LICENSE) for details.
 <td width="25%" align="center">
 
 ### 💡 Questions
-[GitHub Discussions](https://github.com/yourusername/llm-session-manager/discussions)
+[GitHub Discussions](https://github.com/iamgagan/llm-session-manager/discussions)
 
 </td>
 <td width="25%" align="center">
 
 ### 🐛 Bug Reports
-[GitHub Issues](https://github.com/yourusername/llm-session-manager/issues)
+[GitHub Issues](https://github.com/iamgagan/llm-session-manager/issues)
 
 </td>
 <td width="25%" align="center">
@@ -737,17 +733,23 @@ MIT License - see [LICENSE](LICENSE) for details.
 **Get started in 30 seconds:**
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/yourusername/llm-session-manager/main/setup.sh | bash
-llm-session list
-```
-
-**Or clone and explore:**
-
-```bash
-git clone https://github.com/yourusername/llm-session-manager.git
+git clone https://github.com/iamgagan/llm-session-manager.git
 cd llm-session-manager
 poetry install
 poetry run python -m llm_session_manager.cli list
+```
+
+**Or explore the features:**
+
+```bash
+# List all your AI sessions
+poetry run python -m llm_session_manager.cli list
+
+# Get health check on a session
+poetry run python -m llm_session_manager.cli health <session-id>
+
+# Real-time monitoring dashboard
+poetry run python -m llm_session_manager.cli monitor
 ```
 
 ---
@@ -756,7 +758,7 @@ poetry run python -m llm_session_manager.cli list
 
 *Monitor smarter • Collaborate better • Learn continuously*
 
-**[⭐ Star on GitHub](https://github.com/yourusername/llm-session-manager)** • **[📖 Read the Docs](docs/)** • **[🚀 Try the Demo](#)**
+**[⭐ Star on GitHub](https://github.com/iamgagan/llm-session-manager)** • **[📖 Read the Docs](docs/)** • **[🚀 Try the Demo](#)**
 
 ---
 

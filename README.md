@@ -95,33 +95,107 @@ Multiple methods, detailed steps, troubleshooting
 
 <div align="center">
 
-### 📊 Discover All Your AI Coding Sessions
+### 📊 Session Discovery & Monitoring
+
+<table>
+<tr>
+<td width="50%">
+
+**Discover All Your AI Sessions**
 ![Session List](screenshots/list.png)
-*Automatically discovers Claude Code, Cursor, and GitHub Copilot sessions*
+*Auto-discovers Claude Code, Cursor, and GitHub Copilot*
 
-### 📈 Detailed Session Information
+</td>
+<td width="50%">
+
+**Detailed Session Information**
 ![Session Details](screenshots/show.png)
-*Complete session metrics with health scoring and token tracking*
+*Complete metrics with health scoring and token tracking*
 
-### 🏥 Multi-Factor Health Analysis
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+**Multi-Factor Health Analysis**
 ![Health Check](screenshots/health.png)
 *Smart health scoring with actionable recommendations*
 
-### 📺 Real-Time Monitoring Dashboard
+</td>
+<td width="50%">
+
+**Real-Time Monitoring Dashboard**
 ![Live Monitor](screenshots/monitor.png)
 *Track all sessions in real-time with live updates*
 
-### 👥 Team Collaboration
-![Team Collaboration](docs/screenshots/collaboration-ui.png)
-*Share sessions, chat with teammates, and see live cursor positions*
+</td>
+</tr>
+</table>
 
-### 🧠 AI-Powered Insights
-![AI Insights](docs/screenshots/ai-insights.png)
-*Get intelligent recommendations based on patterns from past sessions*
+### 🏷️ Organization & Search
+
+<table>
+<tr>
+<td width="50%">
+
+**Tagging System**
+![Tagging](screenshots/tagging.png)
+*Tag sessions with multiple labels for easy filtering*
+
+</td>
+<td width="50%">
+
+**Project Management**
+![Projects](screenshots/projects.png)
+*Organize sessions by project with descriptions*
+
+</td>
+</tr>
+</table>
+
+### 📤 Export & Reports
+
+<table>
+<tr>
+<td width="50%">
+
+**Markdown Reports**
+![Markdown Export](screenshots/markdown.png)
+*Beautiful markdown reports for documentation*
+
+</td>
+<td width="50%">
+
+**AI-Powered Recommendations**
+![Recommendations](screenshots/recommendations1.png)
+*Intelligent insights based on session patterns*
+
+</td>
+</tr>
+</table>
+
+### 🧠 Memory & Intelligence
+
+<table>
+<tr>
+<td width="50%">
+
+**Cross-Session Memory**
+![Memory System](screenshots/memory.png)
+*Search and learn from past sessions with AI*
+
+</td>
+<td width="50%">
+
+**Team Collaboration API**
+![Team Dashboard](screenshots/team_dashboard.png)
+*Real-time collaboration with REST API & WebSockets*
+
+</td>
+</tr>
+</table>
 
 </div>
-
-> **Note:** Screenshots coming soon! The product is fully functional and tested.
 
 ---
 

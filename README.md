@@ -560,7 +560,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 </td>
 <td width="33%">
 
-### 🔨 v0.4.0 (Next - Q2 2025)
+### 🔨 v0.4.0 (Next - Q1 2026)
 - 🔨 VS Code extension (marketplace)
 - 🔨 Automated session optimization
 - 🔨 Predictive health scoring

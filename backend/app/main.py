@@ -2,8 +2,10 @@
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 import structlog
+from pathlib import Path
 
 from .config import get_settings
 from .routers import auth, sessions, teams, analytics, insights
@@ -65,16 +67,26 @@ app.include_router(insights.router, prefix="/api/insights", tags=["Insights"])
 app.include_router(ws_router, prefix="/ws", tags=["WebSocket"])
 
 
-# Root endpoint
-@app.get("/")
-async def root():
-    """Root endpoint."""
-    return {
-        "name": "LLM Session Manager API",
-        "version": "0.3.0",
-        "docs": "/api/docs",
-        "status": "running"
-    }
+# Mount frontend
+frontend_path = Path(__file__).parent.parent / "frontend"
+if frontend_path.exists():
+    app.mount("/static", StaticFiles(directory=str(frontend_path)), name="static")
+
+    @app.get("/")
+    async def serve_frontend():
+        """Serve frontend dashboard."""
+        return FileResponse(str(frontend_path / "index.html"))
+else:
+    @app.get("/")
+    async def root():
+        """Root endpoint."""
+        return {
+            "name": "LLM Session Manager API",
+            "version": "0.3.0",
+            "docs": "/api/docs",
+            "dashboard": "/static/index.html",
+            "status": "running"
+        }
 
 
 # Health check
